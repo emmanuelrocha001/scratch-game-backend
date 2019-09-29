@@ -1,7 +1,7 @@
 
 const Http = new XMLHttpRequest();
 // server url
-const url = 'https://event-maps-api.herokuapp.com/organizations/';
+const url = 'https://scratch-game-backend.herokuapp.com/players/';
 // body data
 var data;
 
@@ -21,7 +21,7 @@ var data;
         console.log('Hello from javascript block');
         Http.open("POST", url, true);
         Http.setRequestHeader("Content-Type", "application/json");
-        data= {'name': organization_name};
+        data= {'p_id': "1", "p_class": "1" };
         // data= {'p_id': organization_name, '' };
 
         Http.send( JSON.stringify( data ) );
@@ -32,7 +32,7 @@ var data;
     var descriptor = {
         blocks: [
             // Block type, block name, function name
-            ['r', 'make organization with name: %s', 'make_post_request'],
+            [' ', 'create player', 'make_post_request'],
         ]
     };
 

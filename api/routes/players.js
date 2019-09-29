@@ -6,8 +6,40 @@ const Player = require( '../models/player' );
 
 router.get('/', (req, res, next) => {
 
-    res.status(200).json({
-        message: 'get all players in server'
+    Player.find()
+    .select('p_id p_class room x_position y_position xp')
+    .exec()
+    .then(docs => {
+        const response = {
+        count: docs.length,
+        players: docs.map(doc => {
+            return {
+                p_id: doc.p_id,
+                p_class: doc.p_class,
+                room: doc.room,
+                x_position: doc.x_position,
+                y_postion: doc.y_position,
+                xp: doc.xp
+            }
+        })
+        };
+
+        console.log(response);
+
+        if (docs.length >= 0) {
+        res.status(200).json(response);
+        }
+        else{
+        res.status(404).json({
+            message: 'No entires found'
+        });
+        }
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+        error : err
+        });
     });
 });
 
